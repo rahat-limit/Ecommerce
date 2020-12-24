@@ -32,9 +32,22 @@ module.exports = {
             return res.status(500).json({ msg: e.message })
         }
     },
+    getOne: async (req, res) => {
+        try {
+            const id = req.params.id;
+
+            const product = await Product.findById(id)
+
+            if (!product) return res.status(400).json({ msg: 'Product is not defined' })
+
+            return res.status(200).json({ product })
+        } catch (e) {
+            return res.status(500).json({ msg: e.message })
+        }
+    },
     delete: async (req, res) => {
         try {
-            await Product.findById(req.params.id)
+            await Product.findByIdAndDelete(req.params.id)
 
             return res.status(200).json({ msg: 'Product deleted' })
         } catch (e) {
@@ -43,8 +56,12 @@ module.exports = {
     },
     put: async (req, res) => {
         try {
-            const { productId, name, description, price } = req.body;
-            await Product.findByIdAndUpdate(req.params.id, { productId, name, description, price })
+            const errors = validationResult(req)
+
+            if (!errors.isEmpty()) return res.status(400).json({ msg: errors.array()[0].msg })
+            
+            const { productId, name, description, price, category, images } = req.body;
+            await Product.findByIdAndUpdate(req.params.id, { productId, name, description, price, category, images })
 
             return res.status(200).json({ msg: 'Product updated' })
         } catch (e) {

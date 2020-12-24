@@ -6,16 +6,14 @@ import {getAll} from '../Middleware/Product'
 function Products() {
     const dispatch = useDispatch()
 
-    let issues;
-
     const products = useSelector(state => state.product.product)
 
     useEffect(() => {
         dispatch(getAll())
-    }, [issues])
+    }, [])
 
     return (
-        <div>
+        <div className='row' style={{ padding: '10px 0' }}>
             {
                 products.map(item => <Product key={item._id} item={item}/>)
             }

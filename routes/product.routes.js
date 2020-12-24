@@ -6,7 +6,7 @@ router.route('/product')
     .post(valid.product, ctr.create)
     .get(ctr.get)
 router.route('/product/:id')
+    .get(ctr.getOne)
     .delete(ctr.delete)
-    .put(ctr.put)
-
+    .put(valid.product, ctr.put)
 module.exports = router;

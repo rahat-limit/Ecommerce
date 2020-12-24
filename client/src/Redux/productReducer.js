@@ -4,18 +4,18 @@ const initialState = {
 }
 
 const SET_PRODUCT = 'SET_PRODUCT'
-// const GET_PRODUCTS = 'GET_PRODUCTS'
+const ADD_PRODUCT = 'ADD_PRODUCT'
 
 export const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_PRODUCT:
             return {...state, product: action.payload}
-        // case GET_PRODUCTS:
-        //     return { ...state.product,product: action.payload }
+        case ADD_PRODUCT:
+            return { ...state, product: state.product.concat(action.payload) }
         default:
             return state;
     }
 }
 
 export const setProduct = (payload) => ({ type: SET_PRODUCT, payload})
-// export const getProducts = (payload) => ({ type: GET_PRODUCTS, payload})
+export const addProduct = (payload) => ({ type: ADD_PRODUCT, payload})

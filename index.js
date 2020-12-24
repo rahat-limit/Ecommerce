@@ -12,6 +12,7 @@ require('./MongoDB/db')()
 
 app.use('/api/users', require('./routes/auth.routes'))
 app.use('/api/products', require('./routes/product.routes'))
+app.use('/api/category', require('./routes/categor.routes'))
 
 if (process.env.NODE_ENV === 'production') {
     app.use(require('express').static('client/build'))
